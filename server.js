@@ -4,7 +4,7 @@ const port = 3000
 
 
 app.get('/', (req, res) => {
- res.send('Hello World!')
+ res.send(facts)
 })
 
 
@@ -24,11 +24,6 @@ const facts = {
   "8": "Dogs' noses are up to 100,000 times more sensitive than humans, which allows them to detect odors we can't even perceive.",
   "9": "The tallest dog breed in the world is the Great Dane, which can stand over three feet tall at the shoulder."
  }
- 
- 
- app.get('/', (req, res) => {
- res.send(facts)
- })
  
  
  app.get('/random', (req, res) => {
