@@ -1,4 +1,6 @@
 <h1>REST API Workshop</h1>
+<h2>This is a repo that I used to lead the REST API workshop for the UF Software Engineering Club</h2>
+<br/>
 <h2>Run the app locally</h2>
 <p>(Download Node)</p>
 <ul>
