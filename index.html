@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API caller</title>
+  <style>
+    * {
+      font-family: sans-serif;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 5px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    input {
+      border-radius: 5px;
+      border: 1px solid black;
+      padding: 4px 4px;
+      margin-left: 5px;
+    }
+
+    div {
+      margin-left: 5px;
+      margin-top: 15px;
+      padding: 10px 0;
+      border: 1px solid black;
+      width:80%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dog facts!</h1>
+  <button id="random-button">Get random fact</button>
+  <button id="index-button">Get fact at index</button>
+  <input id="index-input" type="number" min="0" value="0">
+  <div id="fact-display">Fact will appear here...</div>
+  <input type="text" id="post-input" value="Enter a fact here!">
+  <button id="post-button">Insert new fact</button>
+
+  <script>
+    
+    document.getElementById("random-button").addEventListener("click", () => {
+      getRandomFact();
+    })
+
+    document.getElementById("index-button").addEventListener("click", () => {
+      let index = document.getElementById("index-input").value;
+      getFactByIndex(index)
+    })
+
+    const getRandomFact = async () => {
+      let results = await fetch("http://localhost:3000/random");
+      results = await results.text();
+      document.getElementById("fact-display").innerText = results;
+    }
+
+    const getFactByIndex = async (index) => {
+      let results = await fetch(`http://localhost:3000/fact?index=${index}`)
+      results = await results.text();
+      document.getElementById("fact-display").innerText = results;
+    }
+
+    document.getElementById("post-button").addEventListener("click", () => {
+      let fact = document.getElementById("post-input").value;
+      postNewFact(fact)
+    })
+
+    const postNewFact = async (fact) => {
+      let results = await fetch("http://localhost:3000/new", {
+        method: "post",  
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({fact: fact})
+      })
+      results = await results.text();
+
+      alert(results)
+    }
+
+  </script>
+</body>
+</html>
