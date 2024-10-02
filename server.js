@@ -31,19 +31,22 @@ app.get('/', (req, res) => {
  res.send(facts);
 })
 
- app.get('/random', (req, res) => {
+app.get('/random', (req, res) => {
   const randomNum = Math.floor(Math.random() * facts.length);
   res.send(facts[randomNum]);
- })
- 
- app.get('/fact', (req, res) => {
+})
+
+app.get('/fact', (req, res) => {
   const parameters = req.query;
   const i = parameters.index;
-  res.send(facts[i]);
- })
+  if (i >= 0 && i < facts.length) {
+    res.send(facts[i]);
+  } else {
+    res.send("Invalid index!")
+  }
+})
 
- app.post('/new', (req, res) => {
+app.post('/new', (req, res) => {
   facts.push(req.body.fact);
   res.send(`New fact added at index ${facts.length-1}!`)
- })
- 
+})
